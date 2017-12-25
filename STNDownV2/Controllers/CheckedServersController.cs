@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using STNDown.Models;
+using STNDownV2.Models;
 using STNDownV2.Data;
+using System;
 
-namespace STNDown.Controllers
+namespace STNDownV2.Controllers
 {
     public class CheckedServersController : Controller
     {
@@ -32,8 +33,15 @@ namespace STNDown.Controllers
 
             var result = checkedServer.Check();
 
+            var checkEvent = new ServerCheckerEvent();
+            checkEvent.CheckedServer = checkedServer;
+            checkEvent.Timestamp = DateTime.UtcNow;
+            checkEvent.Success = result.Success;
+            checkEvent.Latency = result.Latency;
+            _context.Add(checkEvent);
+            await _context.SaveChangesAsync();
+            
             return View(result);
-
         }
 
         

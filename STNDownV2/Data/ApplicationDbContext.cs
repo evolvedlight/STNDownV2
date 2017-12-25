@@ -19,6 +19,8 @@ namespace STNDownV2.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<STNDown.Models.CheckedServer> CheckedServer { get; set; }
+        public DbSet<STNDownV2.Models.CheckedServer> CheckedServer { get; set; }
+
+        public DbSet<STNDownV2.Models.ServerCheckerEvent> ServerCheckerEvent { get; set; }
     }
 }

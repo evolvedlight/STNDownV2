@@ -11,9 +11,10 @@ using System;
 namespace STNDownV2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171224230501_AddEvents_ExtendLatencyField")]
+    partial class AddEvents_ExtendLatencyField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,9 +199,9 @@ namespace STNDownV2.Data.Migrations
                     b.Property<long>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CheckedServerId");
-
                     b.Property<long>("Latency");
+
+                    b.Property<int?>("ServerID");
 
                     b.Property<bool>("Success");
 
@@ -208,7 +209,7 @@ namespace STNDownV2.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CheckedServerId");
+                    b.HasIndex("ServerID");
 
                     b.ToTable("ServerCheckerEvent");
                 });
@@ -260,10 +261,9 @@ namespace STNDownV2.Data.Migrations
 
             modelBuilder.Entity("STNDownV2.Models.ServerCheckerEvent", b =>
                 {
-                    b.HasOne("STNDownV2.Models.CheckedServer", "CheckedServer")
-                        .WithMany("ServerCheckerEvents")
-                        .HasForeignKey("CheckedServerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("STNDownV2.Models.CheckedServer", "Server")
+                        .WithMany()
+                        .HasForeignKey("ServerID");
                 });
 #pragma warning restore 612, 618
         }

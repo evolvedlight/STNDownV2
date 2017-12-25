@@ -1,4 +1,4 @@
-﻿@model STNDown.Models.CheckedServer
+﻿@model STNDownV2.Models.CheckedServer
 
 @{
     ViewData["Title"] = "Details";
@@ -23,6 +23,15 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+</div>
+<div>
+    <h5>Events</h5>
+    @foreach (var checkedEvent in Model.ServerCheckerEvents)
+    {
+        <p>Checked Event: @checkedEvent.Success, @checkedEvent.Latency</p>
+
+    }
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |

@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
 
-namespace STNDown.Models
+namespace STNDownV2.Models
 {
     public class CheckedServer
     {
         public int ID { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
+        public List<ServerCheckerEvent> ServerCheckerEvents { get; set; }
 
         public PingResult Check()
         {
@@ -27,7 +29,7 @@ namespace STNDown.Models
                     Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
                     Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
                     Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
-                    return new PingResult { Success = true };
+                    return new PingResult { Success = true, Latency = reply.RoundtripTime };
                 }
                 else
                 {

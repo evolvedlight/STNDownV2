@@ -129,7 +129,7 @@ namespace STNDownV2.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("STNDown.Models.CheckedServer", b =>
+            modelBuilder.Entity("STNDownV2.Models.CheckedServer", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
